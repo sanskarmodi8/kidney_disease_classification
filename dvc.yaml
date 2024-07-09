@@ -1,0 +1,58 @@
+stages:
+  data_ingestion:
+    cmd: python src/KidneyDiseaseClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/KidneyDiseaseClassifier/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+      - src/KidneyDiseaseClassifier/components/data_ingestion.py
+    outs:
+      - artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
+
+
+  prepare_base_model:
+    cmd: python src/KidneyDiseaseClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+      - src/KidneyDiseaseClassifier/pipeline/stage_02_prepare_base_model.py
+      - config/config.yaml
+      - src/KidneyDiseaseClassifier/components/prepare_base_model.py
+    params:
+      - IMAGE_SIZE
+      - INCLUDE_TOP
+      - CLASSES
+      - WEIGHTS
+      - LEARNING_RATE
+    outs:
+      - artifacts/prepare_base_model
+
+
+  train_model:
+    cmd: python src/KidneyDiseaseClassifier/pipeline/stage_03_training_model.py
+    deps:
+      - src/KidneyDiseaseClassifier/pipeline/stage_03_training_model.py
+      - config/config.yaml
+      - artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
+      - artifacts/prepare_base_model
+      - src/KidneyDiseaseClassifier/components/train_model.py
+    params:
+      - IMAGE_SIZE
+      - EPOCHS
+      - BATCH_SIZE
+      - AUGMENTATION
+    outs:
+      - artifacts/training/model.h5
+
+
+  evaluation:
+    cmd: python src/KidneyDiseaseClassifier/pipeline/stage_04_evaluation.py
+    deps:
+      - src/KidneyDiseaseClassifier/pipeline/stage_04_evaluation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/CT-KIDNEY-DATASET-Normal-Cyst-Tumor-Stone
+      - artifacts/training/model.h5
+      - src/KidneyDiseaseClassifier/components/evaluation.py
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+    metrics:
+    - scores.json:
+        cache: false

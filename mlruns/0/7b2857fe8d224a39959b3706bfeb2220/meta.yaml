@@ -1,0 +1,15 @@
+artifact_uri: file:///home/sanskar/Desktop/kidney_tumor_pred/mlruns/0/7b2857fe8d224a39959b3706bfeb2220/artifacts
+end_time: 1711470771147
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 7b2857fe8d224a39959b3706bfeb2220
+run_name: fortunate-pig-800
+run_uuid: 7b2857fe8d224a39959b3706bfeb2220
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1711470767668
+status: 3
+tags: []
+user_id: sanskar
