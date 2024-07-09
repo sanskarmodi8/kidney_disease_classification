@@ -1,17 +1,18 @@
 # Kidney Disease Classification
 
 This project aims to classify kidney CT scan images into categories such as cyst, normal, tumor, or stone using deep learning and computer vision techniques.
+You can [click here](https://kidneydisease-classification.streamlit.app/) to visit the deployed project on Streamlit Cloud.
 
-The project is hosted on Azure, you can [click here](https://kidneydiseaseclassification.azurewebsites.net/) to visit the deployed project.
+![Kidney Image](https://imgs.search.brave.com/AHHVok0K1oNVjieNXXUl6pUOW-T4FJQKrZ1xJDkffio/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by9o/dW1hbi1raWRuZXlz/LWZsYXQtY3JlYXRp/dmUtaWxsdXN0cmF0/aW9uLWdlbmVyYXRp/dmUtYWlfMTY5MDE2/LTI5MDUxLmpwZz9z/aXplPTYyNiZleHQ9/anBn)
 
 This project mainly utilizes following tools :
 
 - Tensorflow and Keras
-- MLFLOW and Dagshub for Experiment Tracking 
+- MLFLOW and Dagshub for Experiment Tracking and model registry
 - DVC for pipeline versioning
 - FastAPI for server
+- Streamlit for user interface application
 - Docker for containerization
-- Azure for deployment
 
 ## Table of Contents
 
@@ -35,7 +36,8 @@ The project follows a modular structure for better organization and maintainabil
     - `constants/`: Constants used throughout the project.
 - `config/`: Configuration files.
 - `trial_notebooks/`: Directory for trials and experiments in jupyter notebook.
-- `app.py`: FastAPI server.
+- `fastapiApp.py`: FastAPI server.
+- `streamlitApp.py`: Streamlit application
 - `Dockerfile`: Docker configuration for containerization.
 - `requirements.txt`: Project dependencies.
 - `setup.py`: Setup script for installing the project.
@@ -93,7 +95,12 @@ python src/KidneyDiseaseClassifier/pipeline/stage_04_evaluation.py
 Change the port to 8080 in the app.py file and then,
 
 ```bash
-python app.py
+python fastapiApp.py
+```
+### To start Streamlit application :
+
+```bash
+python streamlitApp.py
 ```
 
 ## Contributing
